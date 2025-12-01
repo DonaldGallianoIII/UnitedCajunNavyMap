@@ -31,7 +31,10 @@
                         type="text" 
                         id="search-input" 
                         class="search-bar__input" 
-                        placeholder="Search city, zip, or address..."
+                        placeholder="Enter zip code..."
+                        inputmode="numeric"
+                        pattern="[0-9]{5}"
+                        maxlength="5"
                     >
                     <button type="submit" class="search-bar__btn">Search</button>
                 </form>
