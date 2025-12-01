@@ -133,10 +133,10 @@ async function handleSearch(e) {
 
 async function geocode(zipCode) {
     const params = new URLSearchParams({
-        postalcode: zipCode,
-        country: 'us',
+        q: zipCode + ', USA',
         format: 'json',
-        limit: 1
+        limit: 1,
+        countrycodes: 'us'
     });
     
     const response = await fetch(`${NOMINATIM_URL}?${params}`, {
@@ -149,10 +149,14 @@ async function geocode(zipCode) {
     if (results.length === 0) return null;
     
     const result = results[0];
+    // Extract city/state from display name
+    const parts = result.display_name.split(',');
+    const display = parts.slice(0, 2).join(',').trim();
+    
     return {
         lat: parseFloat(result.lat),
         lng: parseFloat(result.lon),
-        display: result.display_name.split(',').slice(0, 2).join(',').trim()
+        display: display
     };
 }
 
