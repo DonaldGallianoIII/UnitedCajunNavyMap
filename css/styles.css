@@ -379,18 +379,9 @@ body {
     color: var(--color-text);
 }
 
+/* Toggle button - hidden on desktop */
 .legend__toggle {
-    display: none;
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 0;
-    -webkit-appearance: none;
-    appearance: none;
+    display: none !important;
 }
 
 .legend__toggle-icon {
@@ -406,6 +397,16 @@ body {
 
 .legend__content {
     display: block;
+}
+
+/* Desktop title - shown separately */
+.legend__title--desktop {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-md);
 }
 
 .legend__updated {
@@ -836,6 +837,11 @@ body {
         padding: var(--spacing-md) var(--spacing-lg);
     }
     
+    /* Hide desktop title on mobile */
+    .legend__title--desktop {
+        display: none;
+    }
+    
     /* Legend - bottom sheet style */
     .legend {
         position: fixed;
@@ -853,7 +859,7 @@ body {
     }
     
     .legend--collapsed {
-        max-height: 52px;
+        max-height: 48px;
     }
     
     /* Drag handle */
@@ -871,18 +877,27 @@ body {
     }
     
     .legend__toggle {
-        display: flex;
+        display: flex !important;
         align-items: center;
         justify-content: center;
+        width: 100%;
         padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
         background: transparent;
         border: none;
         outline: none;
+        box-shadow: none;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .legend__title {
         margin: 0;
         font-size: var(--font-size-sm);
+        font-weight: 600;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
     
     .legend__toggle-icon {
@@ -892,7 +907,7 @@ body {
     .legend__content {
         padding: 0 var(--spacing-md) var(--spacing-md);
         overflow-y: auto;
-        max-height: calc(55vh - 52px);
+        max-height: calc(55vh - 48px);
         -webkit-overflow-scrolling: touch;
     }
     
