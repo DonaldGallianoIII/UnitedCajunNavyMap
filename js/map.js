@@ -44,8 +44,12 @@ export function initMap(containerId, options = {}) {
         center: config.center,
         zoom: config.zoom,
         minZoom: config.minZoom,
-        maxZoom: config.maxZoom
+        maxZoom: config.maxZoom,
+        zoomControl: false
     });
+    
+    // Add zoom control to bottom-left (avoids search bar overlap)
+    L.control.zoom({ position: 'bottomleft' }).addTo(mapInstance);
     
     L.tileLayer(CONFIG.TileUrl, {
         attribution: CONFIG.TileAttribution
