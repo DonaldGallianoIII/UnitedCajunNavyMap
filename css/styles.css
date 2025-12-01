@@ -381,6 +381,27 @@ body {
 
 .legend__toggle {
     display: none;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.legend__toggle-icon {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    transition: transform 0.3s ease;
+    margin-left: var(--spacing-sm);
+}
+
+.legend--collapsed .legend__toggle-icon {
+    transform: rotate(180deg);
 }
 
 .legend__content {
@@ -825,29 +846,18 @@ body {
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
         padding: 0;
-        max-height: 60vh;
+        max-height: 55vh;
         overflow: hidden;
         z-index: 1001;
         transition: max-height 0.3s ease;
     }
     
     .legend--collapsed {
-        max-height: 56px;
+        max-height: 52px;
     }
     
-    .legend__toggle {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: var(--spacing-md);
-        background: var(--color-surface);
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
-    }
-    
-    .legend__toggle::before {
+    /* Drag handle */
+    .legend::before {
         content: '';
         position: absolute;
         top: 8px;
@@ -857,28 +867,33 @@ body {
         height: 4px;
         background: var(--color-border);
         border-radius: 2px;
+        z-index: 1;
+    }
+    
+    .legend__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
+        background: transparent;
+        border: none;
+        outline: none;
     }
     
     .legend__title {
         margin: 0;
-        text-align: left;
-        padding: 0;
+        font-size: var(--font-size-sm);
     }
     
     .legend__toggle-icon {
-        font-size: 12px;
-        color: var(--color-text-muted);
-        transition: transform 0.3s ease;
-    }
-    
-    .legend--collapsed .legend__toggle-icon {
-        transform: rotate(180deg);
+        font-size: 10px;
     }
     
     .legend__content {
         padding: 0 var(--spacing-md) var(--spacing-md);
         overflow-y: auto;
-        max-height: calc(60vh - 56px);
+        max-height: calc(55vh - 52px);
+        -webkit-overflow-scrolling: touch;
     }
     
     .legend--collapsed .legend__content {
