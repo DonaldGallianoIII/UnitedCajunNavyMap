@@ -84,17 +84,27 @@ async function handleSearch(e) {
     e.preventDefault();
     
     const query = searchInput.value.trim();
-    if (!query) return;
+    
+    // Validate zip code format
+    if (!query) {
+        showSearchResult('Please enter a zip code', 'error');
+        return;
+    }
+    
+    if (!/^\d{5}$/.test(query)) {
+        showSearchResult('Please enter a valid 5-digit zip code', 'error');
+        return;
+    }
     
     // Show loading state
     showSearchResult('Searching...', 'neutral');
     
     try {
-        // Geocode the query
+        // Geocode the zip code
         const coords = await geocode(query);
         
         if (!coords) {
-            showSearchResult('Location not found. Try a different search.', 'error');
+            showSearchResult(`Zip code ${query} not found`, 'error');
             return;
         }
         
@@ -108,11 +118,11 @@ async function handleSearch(e) {
         // Draw search radius circle
         drawSearchCircle(coords.lat, coords.lng);
         
-        // Show result
+        // Show confirmation with location name
         if (nearbyPins.length === 0) {
-            showSearchResult(`No pins within ${SEARCH_RADIUS_MILES} miles of "${coords.display}"`, 'neutral');
+            showSearchResult(`✓ Found ${query} (${coords.display}) — No pins within ${SEARCH_RADIUS_MILES} miles`, 'neutral');
         } else {
-            showSearchResult(`${nearbyPins.length} pin${nearbyPins.length === 1 ? '' : 's'} within ${SEARCH_RADIUS_MILES} miles of "${coords.display}"`, 'success');
+            showSearchResult(`✓ Found ${query} (${coords.display}) — ${nearbyPins.length} pin${nearbyPins.length === 1 ? '' : 's'} within ${SEARCH_RADIUS_MILES} miles`, 'success');
         }
         
     } catch (err) {
@@ -121,12 +131,12 @@ async function handleSearch(e) {
     }
 }
 
-async function geocode(query) {
+async function geocode(zipCode) {
     const params = new URLSearchParams({
-        q: query,
+        postalcode: zipCode,
+        country: 'us',
         format: 'json',
-        limit: 1,
-        countrycodes: 'us'
+        limit: 1
     });
     
     const response = await fetch(`${NOMINATIM_URL}?${params}`, {
@@ -142,7 +152,7 @@ async function geocode(query) {
     return {
         lat: parseFloat(result.lat),
         lng: parseFloat(result.lon),
-        display: result.display_name.split(',').slice(0, 2).join(',')
+        display: result.display_name.split(',').slice(0, 2).join(',').trim()
     };
 }
 
