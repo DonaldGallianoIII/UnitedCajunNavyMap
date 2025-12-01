@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>United Cajun Navy - Deployment Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__logo">
+            <h1>United Cajun Navy</h1>
+            <span class="header__tagline">Deployment Map</span>
+        </div>
+        <nav class="header__nav">
+            <a href="./admin.html" class="btn btn--secondary">Admin</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="map-container">
+            <div id="map" class="map"></div>
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <form id="search-form" class="search-bar__form">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-bar__input" 
+                        placeholder="Search city, zip, or address..."
+                    >
+                    <button type="submit" class="search-bar__btn">Search</button>
+                </form>
+                <div id="search-result" class="search-bar__result is-hidden"></div>
+            </div>
+        </div>
+
+        <!-- Legend with Filters -->
+        <aside class="legend" id="legend">
+            <button class="legend__toggle" id="legend-toggle" aria-expanded="true">
+                <h3 class="legend__title">Pin Status</h3>
+                <span class="legend__toggle-icon">▼</span>
+            </button>
+            <div class="legend__content" id="legend-content">
+                <ul class="legend__list" id="legend-list">
+                    <li class="legend__item legend__item--clickable" data-status="critical">
+                        <span class="legend__dot legend__dot--critical"></span>
+                        <span class="legend__label">Critical</span>
+                        <span class="legend__count" data-count="critical">0</span>
+                    </li>
+                    <li class="legend__item legend__item--clickable" data-status="warning">
+                        <span class="legend__dot legend__dot--warning"></span>
+                        <span class="legend__label">Warning</span>
+                        <span class="legend__count" data-count="warning">0</span>
+                    </li>
+                    <li class="legend__item legend__item--clickable" data-status="active">
+                        <span class="legend__dot legend__dot--active"></span>
+                        <span class="legend__label">Active</span>
+                        <span class="legend__count" data-count="active">0</span>
+                    </li>
+                    <li class="legend__item legend__item--clickable" data-status="past">
+                        <span class="legend__dot legend__dot--past"></span>
+                        <span class="legend__label">Past</span>
+                        <span class="legend__count" data-count="past">0</span>
+                    </li>
+                    <li class="legend__item legend__item--clickable" data-status="weather">
+                        <span class="legend__dot legend__dot--weather"></span>
+                        <span class="legend__label">Weather</span>
+                        <span class="legend__count" data-count="weather">0</span>
+                    </li>
+                </ul>
+                <button id="show-all-btn" class="legend__show-all">Show All</button>
+                <div id="last-updated" class="legend__updated"></div>
+            </div>
+        </aside>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

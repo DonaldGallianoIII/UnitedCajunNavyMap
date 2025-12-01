@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UCN Map - Admin Panel</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <h1>UCN Admin</h1>
+            <p>Sign in to manage pins</p>
+            <form id="login-form" class="login-form">
+                <input 
+                    type="email" 
+                    id="email-input" 
+                    class="input" 
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+                <input 
+                    type="password" 
+                    id="password-input" 
+                    class="input" 
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+                <button type="submit" class="btn btn--primary btn--full">Sign In</button>
+                <p id="login-error" class="error-text is-hidden"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel (hidden until login) -->
+    <div id="admin-panel" class="admin-panel is-hidden">
+        <header class="header">
+            <div class="header__logo">
+                <h1>UCN Admin</h1>
+                <span class="header__tagline">Pin Management</span>
+            </div>
+            <nav class="header__nav">
+                <a href="./index.html" class="btn btn--secondary">View Public Map</a>
+                <button id="logout-btn" class="btn btn--ghost">Logout</button>
+            </nav>
+        </header>
+
+        <main class="main main--admin">
+            <div class="map-container map-container--admin">
+                <div id="map" class="map"></div>
+                <div class="map-instructions">
+                    <p>Click anywhere on the map to place a pin</p>
+                </div>
+            </div>
+
+            <aside class="sidebar">
+                <!-- Pin Form -->
+                <form id="pin-form" class="pin-form is-hidden">
+                    <h3 class="pin-form__title">New Pin</h3>
+                    
+                    <div class="form-group">
+                        <label for="pin-title">Title</label>
+                        <input type="text" id="pin-title" class="input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pin-address">Address <span style="font-weight: normal; color: #64748b;">(optional)</span></label>
+                        <input type="text" id="pin-address" class="input" placeholder="123 Main St, City, LA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pin-status">Status</label>
+                        <select id="pin-status" class="input">
+                            <option value="critical">🔴 Critical</option>
+                            <option value="warning">🟠 Warning</option>
+                            <option value="active" selected>🟢 Active</option>
+                            <option value="past">🔵 Past</option>
+                            <option value="weather">🟡 Weather</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pin-summary">Summary</label>
+                        <textarea id="pin-summary" class="input input--textarea" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pin-url">Link URL <span style="font-weight: normal; color: #64748b;">(optional)</span></label>
+                        <input type="url" id="pin-url" class="input" placeholder="https://example.com/info">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pin-url-text">Link Button Text</label>
+                        <input type="text" id="pin-url-text" class="input" placeholder="More Info" value="More Info">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Show Buttons</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="pin-show-donate">
+                                Donate
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="pin-show-volunteer">
+                                Volunteer
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="pin-show-help">
+                                Get Help
+                            </label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="pin-lat">
+                    <input type="hidden" id="pin-lng">
+                    <input type="hidden" id="pin-id">
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Save Pin</button>
+                        <button type="button" id="cancel-btn" class="btn btn--ghost">Cancel</button>
+                    </div>
+                </form>
+
+                <!-- Pin List -->
+                <div id="pin-list-container" class="pin-list-container">
+                    <h3 class="pin-list__title">Existing Pins</h3>
+                    <ul id="pin-list" class="pin-list"></ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="./js/admin.js"></script>
+</body>
+</html>
