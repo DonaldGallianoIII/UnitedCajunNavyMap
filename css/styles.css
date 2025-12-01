@@ -379,18 +379,16 @@ body {
     color: var(--color-text);
 }
 
-/* Toggle button - hidden on desktop */
+/* Toggle - completely hidden on desktop */
 .legend__toggle {
-    display: none !important;
+    display: none;
 }
 
-.legend__toggle-icon {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    transition: transform 0.3s ease;
+.legend__arrow {
+    display: none;
 }
 
-.legend--collapsed .legend__toggle-icon {
+.legend--collapsed .legend__arrow {
     transform: rotate(180deg);
 }
 
@@ -861,23 +859,26 @@ body {
     }
     
     .legend__toggle {
-        display: flex !important;
+        display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
-        background: transparent;
-        border: none;
-        outline: none;
-        box-shadow: none;
         cursor: pointer;
-        -webkit-appearance: none;
-        appearance: none;
     }
     
-    .legend__toggle-icon {
-        font-size: 10px;
-        color: var(--color-text-muted);
+    .legend__arrow {
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid var(--color-text-muted);
+        transition: transform 0.3s ease;
+    }
+    
+    .legend--collapsed .legend__arrow {
+        transform: rotate(180deg);
     }
     
     .legend__content {
